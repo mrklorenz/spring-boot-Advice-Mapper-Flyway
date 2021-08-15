@@ -37,8 +37,10 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public void deleteEmployeeByID(Integer employeeID) {
+    public Employee deleteEmployeeByID(Integer employeeID) {
         employeeRepository.deleteById(employeeID);
+        return employeeRepository.findById(employeeID)
+                .orElseThrow(()->new NoEmployeeWithIDFoundException("Employee Deleted!"));
     }
 
     public Employee updateEmployeeByID(Integer employeeID, Employee employeeDetails) {

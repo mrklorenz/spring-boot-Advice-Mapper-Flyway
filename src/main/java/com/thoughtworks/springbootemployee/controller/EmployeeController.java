@@ -52,18 +52,19 @@ public class EmployeeController {
         return employeeMapper.toResponse(employee);
     }
 
-    @PutMapping(path = "/{employeeID}")
-    public Employee updateEmployee(@PathVariable Integer employeeID, @RequestBody Employee employeeDetails) {
-        return employeeService.updateEmployeeByID(employeeID, employeeDetails);
+    @PutMapping(path = "/{employeeId}")
+    public EmployeeResponse updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeRequest employeeRequest) {
+        Employee employee = employeeService.updateEmployeeByID(employeeId, employeeMapper.toEntity(employeeRequest));
+        return employeeMapper.toResponse(employee);
     }
 
     @DeleteMapping(path = "/{employeeID}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void removeEmployee(@PathVariable Integer employeeID) {
-        employeeService.deleteEmployeeByID(employeeID);
+    public EmployeeResponse removeEmployee(@PathVariable Integer employeeID) {
+        return employeeMapper.toResponse(employeeService.deleteEmployeeByID(employeeID));
     }
 
-    public List<EmployeeResponse> mapListToEmployeeResponse(List<Employee> employees){
+    public List<EmployeeResponse> mapListToEmployeeResponse(List<Employee> employees) {
         return employees.stream()
                 .map(employee -> employeeMapper.toResponse(employee))
                 .collect(Collectors.toList());
