@@ -24,9 +24,7 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeResponse> getAllEmployeeInfo() {
         List<Employee> employees = employeeService.getAllEmployees();
-        return employees.stream()
-                .map(employee -> employeeMapper.toResponse(employee))
-                .collect(Collectors.toList());
+        return mapListToEmployeeResponse(employees);
     }
 
     @GetMapping(path = "/{employeeID}")
@@ -37,18 +35,18 @@ public class EmployeeController {
     @GetMapping(params = "gender")
     public List<EmployeeResponse> findEmployeesByGender(@RequestParam String gender) {
         List<Employee> employees = employeeService.findEmployeesByGender(gender);
-        return employees.stream()
-                .map(employee -> employeeMapper.toResponse(employee))
-                .collect(Collectors.toList());
+        return mapListToEmployeeResponse(employees);
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
-    public List<Employee> findEmployeesByPagination(@RequestParam int pageIndex, @RequestParam int pageSize) {
-        return employeeService.findEmployeesByPagination(pageIndex, pageSize);
+    public List<EmployeeResponse> findEmployeesByPagination(@RequestParam int pageIndex, @RequestParam int pageSize) {
+        List<Employee> employees = employeeService.findEmployeesByPagination(pageIndex, pageSize);
+        return mapListToEmployeeResponse(employees);
     }
 
     @PostMapping
     public Employee addEmployee(@RequestBody Employee employee) {
+
         return employeeService.addEmployee(employee);
     }
 
@@ -61,6 +59,12 @@ public class EmployeeController {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void removeEmployee(@PathVariable Integer employeeID) {
         employeeService.deleteEmployeeByID(employeeID);
+    }
+
+    public List<EmployeeResponse> mapListToEmployeeResponse(List<Employee> employees){
+        return employees.stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
 }
