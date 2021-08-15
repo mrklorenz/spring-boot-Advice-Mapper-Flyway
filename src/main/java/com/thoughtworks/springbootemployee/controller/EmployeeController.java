@@ -1,13 +1,16 @@
 package com.thoughtworks.springbootemployee.controller;
 
 
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
+import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -15,9 +18,15 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    @Autowired
+    EmployeeMapper employeeMapper;
+
     @GetMapping
-    public List<Employee> getAllEmployeeInfo() {
-        return employeeService.getAllEmployees();
+    public List<EmployeeResponse> getAllEmployeeInfo() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        return employees.stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{employeeID}")
