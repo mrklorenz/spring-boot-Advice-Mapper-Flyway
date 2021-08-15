@@ -1,6 +1,6 @@
 package com.thoughtworks.springbootemployee.integration;
 
-import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
