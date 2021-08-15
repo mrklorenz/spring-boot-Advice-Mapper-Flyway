@@ -30,8 +30,8 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/{employeeID}")
-    public Employee findEmployeeByID(@PathVariable Integer employeeID) {
-        return employeeService.findEmployeeById(employeeID);
+    public EmployeeResponse findEmployeeByID(@PathVariable Integer employeeID) {
+        return employeeMapper.toResponse(employeeService.findEmployeeById(employeeID));
     }
 
     @GetMapping(params = "gender")
