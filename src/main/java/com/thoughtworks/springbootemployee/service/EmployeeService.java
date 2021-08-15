@@ -44,7 +44,7 @@ public class EmployeeService {
     public Employee updateEmployeeByID(Integer employeeID, Employee employeeDetails) {
         Employee updateEmployee = employeeRepository.findById(employeeID)
                 .map(employee -> updateEmployeeInfo(employee, employeeDetails))
-                .get();
+                .orElseThrow(()-> new NoEmployeeWithIDFoundException("No employee found for given id!"));
 
         return employeeRepository.save(updateEmployee);
     }
