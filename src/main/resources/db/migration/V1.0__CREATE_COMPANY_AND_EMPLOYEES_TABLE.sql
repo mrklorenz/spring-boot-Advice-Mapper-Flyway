@@ -1,6 +1,6 @@
 CREATE TABLE if NOT EXISTS company(
 id int not null  auto_increment primary key,
-company_name varchar(255) not null);
+name varchar(255) not null);
 
 CREATE TABLE if NOT EXISTS employee(
 id int not null  auto_increment primary key,
