@@ -1,4 +1,4 @@
-package com.thoughtworks.springbootemployee.model;
+package com.thoughtworks.springbootemployee.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,19 +14,19 @@ public class Employee {
     private Integer age;
     private String gender;
     private Integer salary;
-    private Integer companyid;
+    private Integer companyId;
 
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, Integer age, String gender, Integer salary, Integer companyid) {
+    public Employee(Integer id, String name, Integer age, String gender, Integer salary, Integer companyId) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
-        this.companyid = companyid;
+        this.companyId = companyId;
     }
 
     public Integer getId() {
@@ -65,11 +65,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Integer getCompanyid() {
-        return companyid;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setCompanyid(Integer companyid) {
-        this.companyid = companyid;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

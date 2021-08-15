@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.NoEmployeeWithIDFoundException;
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class EmployeeService {
         if (employeeDetails.getAge() != null) employee.setAge(employeeDetails.getAge());
         if (employeeDetails.getGender() != null) employee.setGender(employeeDetails.getGender());
         if (employeeDetails.getSalary() != null) employee.setSalary(employeeDetails.getSalary());
-        if (employeeDetails.getCompanyid() != null) employee.setCompanyid(employeeDetails.getCompanyid());
+        if (employeeDetails.getCompanyId() != null) employee.setCompanyId(employeeDetails.getCompanyId());
 
         return employee;
     }
