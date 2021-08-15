@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.integration;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,11 +23,6 @@ public class EmployeeIntegrationTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-
-    @AfterEach
-    void tearDown(){
-        employeeRepository.deleteAll();
-    }
 
     @Test
     public void should_return_all_employees_when_get_all_employees_API() throws Exception {
@@ -101,22 +95,25 @@ public class EmployeeIntegrationTest {
     @Test
     public void should_update_employee_when_update_employee_given_employee_id() throws Exception {
         //given
+        Employee employee = new Employee(10, "SeanBolus", 71, "Female", 6969, 3);
+        Employee savedEmployee = employeeRepository.save(employee);
         String updateEmployeeDetails = "{\n" +
-                "    \"name\" : \"DJ Mrk\",\n" +
-                "    \"age\" : 23,\n" +
-                "    \"gender\" : \"male\",\n" +
-                "    \"salary\" : \"999\",\n" +
+                "    \"name\" : \"SeanBolus\",\n" +
+                "    \"age\" : 71,\n" +
+                "    \"gender\" : \"Male\",\n" +
+                "    \"salary\" : \"9999\",\n" +
                 "    \"companyId\" : 2\n" +
                 "}";
-        int id = 1;
+        int id = savedEmployee.getId();
         //when
         //then
         mockMvc.perform(MockMvcRequestBuilders.put("/employees/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateEmployeeDetails))
-                .andExpect(jsonPath("$.name").value("DJ Mrk"))
-                .andExpect(jsonPath("$.age").value("23"))
-                .andExpect(jsonPath("$.salary").value("999"));
+                .andExpect(jsonPath("$.name").value("SeanBolus"))
+                .andExpect(jsonPath("$.age").value("71"))
+                .andExpect(jsonPath("$.gender").value("Male"))
+                .andExpect(jsonPath("$.salary").value("9999"));
     }
 
     @Test
